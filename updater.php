@@ -1,7 +1,7 @@
 <?php
 
-if( ! class_exists( 'ALCPORUpdater' ) ) {
-	class ALCPORUpdater
+if( ! class_exists( 'ALCPBSUpdater' ) ) {
+	class ALCPBSUpdater
 	{
 		public $plugin_slug;
 		public $version;
