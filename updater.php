@@ -25,7 +25,7 @@ if( ! class_exists( 'ALCPBSUpdater' ) ) {
 			$remote = get_transient($this->cache_key);
 			if(false === $remote || ! $this->cache_allowed) {
 				$remote = wp_remote_get(
-					'https://sanctuary.test/update.json',
+					'https://plugins.artslabcreatives.com/artslab-product-based-shipping/updates/update.json',
 					array(
 						'timeout' => 10,
 						'headers' => array(
