@@ -4,7 +4,7 @@
  * Plugin Name: Artslab Product Based Shipping
  * Plugin URI: https://artslabcreatives.com
  * Description: Products that will increase shipping based on the count and not the weight
- * Version: 1.0.0
+ * Version: 1.1.0
  * Requires at least: 6.1
  * Requires PHP: 7.4
  * Author: Artslab Creatives
@@ -367,7 +367,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                  *
                  * @param string $key Field key.
                  * @param array  $data Field data.
-                 * @since  1.0.0
+                 * @since  1.1.0
                  * @return string
                  */
                 public function generate_hidden_html( $key, $data ) {
