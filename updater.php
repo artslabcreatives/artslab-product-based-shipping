@@ -12,7 +12,7 @@ if( ! class_exists( 'ALCPORUpdater' ) ) {
 
 			$this->plugin_slug = plugin_basename(__DIR__);
 			$this->version = '1.3';
-			$this->cache_key = 'artlab_product_order_review_wc_updater';
+			$this->cache_key = 'artlab_product_shipping_wc_updater';
 			$this->cache_allowed = false;
 
 			add_filter('plugins_api', array($this, 'info'), 20, 3);
@@ -116,7 +116,7 @@ if( ! class_exists( 'ALCPORUpdater' ) ) {
 			) {
 				$res = new stdClass();
 				$res->slug = $this->plugin_slug;
-				$res->plugin = basename(dirname(__FILE__)).'/artslab-product-order-reviews.php';
+				$res->plugin = basename(dirname(__FILE__)).'/artslab-product-based-shipping.php';
 				$res->new_version = $remote->version;
 				$res->tested = $remote->tested;
 				$res->package = $remote->download_url;

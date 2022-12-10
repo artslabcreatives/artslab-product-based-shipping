@@ -1,12 +1,12 @@
 {
 	"name" : "Artslab Product Order Reviews",
-	"slug" : "artslab-product-order-reviews",
+	"slug" : "artslab-product-based-shipping",
 	"author" : "<a href='https://artslabcreatives.com'>Miyuru Dharmage</a>",
 	"author_profile" : "http://profiles.wordpress.org/voxsar",
 	"version" : "_VERSION_",
-	"download_url" : "https://plugins.artslabcreatives.com/artslab-product-order-reviews/updates/artslab-product-order-reviews.zip",
+	"download_url" : "https://plugins.artslabcreatives.com/artslab-product-based-shipping/updates/artslab-product-based-shipping.zip",
 	"requires" : "3.0",
-	"tested" : "5.8",
+	"tested" : "6.1.1",
 	"requires_php" : "5.3",
 	"last_updated" : "2021-01-30 02:10:00",
 	"sections" : {

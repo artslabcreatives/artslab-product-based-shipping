@@ -8,7 +8,7 @@ Allows you send emails regarding orders and get customers to review the orders o
 
 We are a digital media agency that believes, through proper strategy formulation, the right amount of creativity and innovation, a brand can truly come to life, communicate and create bonds at an emotional level with their target audience.
 
-<p align="center"><a href="https://elementor.com" target="_blank"><img src="https://plugins.artslabcreatives.com/artslab-product-order-reviews/updates/elementor.svg" width="400"></a></p>
+<p align="center"><a href="https://elementor.com" target="_blank"><img src="https://plugins.artslabcreatives.com/artslab-product-based-shipping/updates/elementor.svg" width="400"></a></p>
 
 ## Elementor
 

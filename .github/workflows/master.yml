@@ -11,17 +11,17 @@ jobs:
       with:
         fetch-depth: 0
     - name: Updates Folder Zip Delete
-      run: rm -f updates/artslab-product-order-reviews.zip
+      run: rm -f updates/artslab-product-based-shipping.zip
     - name: Zip Folder
-      run: zip -r artslab-product-order-reviews.zip . -x ".git/*" ".github/*"
+      run: zip -r artslab-product-based-shipping.zip . -x ".git/*" ".github/*"
     - name: Initial Zip
       run: echo "Created initial zip"
     - name: Zip the Zip
-      run: zip -r artslab-product-order-reviews.zip2.zip ./artslab-product-order-reviews.zip
+      run: zip -r artslab-product-based-shipping.zip2.zip ./artslab-product-based-shipping.zip
     - name: First Zip Delete
-      run: rm artslab-product-order-reviews.zip
+      run: rm artslab-product-based-shipping.zip
     - name: Zip Rename
-      run: mv artslab-product-order-reviews.zip2.zip updates/artslab-product-order-reviews.zip
+      run: mv artslab-product-based-shipping.zip2.zip updates/artslab-product-based-shipping.zip
     - name: Remove existing update.json
       run: rm updates/update.json
     - name: 'Get Previous tag'
@@ -39,9 +39,9 @@ jobs:
     - name: Create copy of update.json using template
       run: cp updates/update-template.json updates/update.json
     - name: Replace version in update.json
-      run: sed -i 's/_VERSION_/${{steps.semvers.outputs.patch}}/' updates/update.json
+      run: sed -i 's/_VERSION_/${{steps.semvers.outputs.minor}}/' updates/update.json
     - name: Replace version in plugin php file
-      run: sed -i 's/${{ steps.previoustag.outputs.tag }}/${{steps.semvers.outputs.patch}}/' artslab-product-order-reviews.php
+      run: sed -i 's/${{ steps.previoustag.outputs.tag }}/${{steps.semvers.outputs.minor}}/' artslab-product-based-shipping.php
     - uses: EndBug/add-and-commit@v9
       with:
         tag: "${{steps.semvers.outputs.minor}}"
