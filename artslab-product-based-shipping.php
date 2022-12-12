@@ -140,7 +140,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'description'   => __($currency.' cost of the first product'),
                             'default'       => __('1'),
                             'desc_tip'      => true,
-                            'key'           => $key,
                             'currency'      => $currency,
                             'neotype'       => 'cost'
                         );
@@ -150,7 +149,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'description'   => __($currency.' cost of the every addtional product'),
                             'default'       => __('1'),
                             'desc_tip'      => true,
-                            'key'           => $key,
                             'currency'      => $currency,
                             'neotype'       => 'cost_additional'
                         );
@@ -187,7 +185,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'description'   => __($currency.' cost of the first product'),
                             'default'       => __('1'),
                             'desc_tip'      => true,
-                            'key'           => $key,
                             'currency'      => $currency,
                             'neotype'       => 'cost'
                         );
@@ -197,7 +194,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'description'   => __($currency.' cost of the every addtional product'),
                             'default'       => __('1'),
                             'desc_tip'      => true,
-                            'key'           => $key,
                             'currency'      => $currency,
                             'neotype'       => 'cost_additional'
                         );
@@ -234,7 +230,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'description'   => __($currency.' cost of the first product'),
                             'default'       => __('1'),
                             'desc_tip'      => true,
-                            'key'           => $key,
                             'currency'      => $currency,
                             'neotype'       => 'cost'
                         );
@@ -244,7 +239,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'description'   => __($currency.' cost of the every addtional product'),
                             'default'       => __('1'),
                             'desc_tip'      => true,
-                            'key'           => $key,
                             'currency'      => $currency,
                             'neotype'       => 'cost_additional'
                         );
@@ -281,7 +275,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'description'   => __($currency.' cost of the first product'),
                             'default'       => __('1'),
                             'desc_tip'      => true,
-                            'key'           => $key,
                             'currency'      => $currency,
                             'neotype'       => 'cost'
                         );
@@ -291,7 +284,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'description'   => __($currency.' cost of the every addtional product'),
                             'default'       => __('1'),
                             'desc_tip'      => true,
-                            'key'           => $key,
                             'currency'      => $currency,
                             'neotype'       => 'cost_additional'
                         );
@@ -328,7 +320,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'description'   => __($currency.' cost of the first product'),
                             'default'       => __('1'),
                             'desc_tip'      => true,
-                            'key'           => $key,
                             'currency'      => $currency,
                             'neotype'       => 'cost'
                         );
@@ -338,7 +329,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'description'   => __($currency.' cost of the every addtional product'),
                             'default'       => __('1'),
                             'desc_tip'      => true,
-                            'key'           => $key,
                             'currency'      => $currency,
                             'neotype'       => 'cost_additional'
                         );
@@ -430,7 +420,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     $this->setting2s = WOOMULTI_CURRENCY_F_Data::get_ins();
                     $cost = 0;
                     $cost_additional = 0;
-                    $wc = $this->setting2s->get_current_currency();
+                    $wc = 'LKR';//$this->setting2s->get_current_currency();
 
                     //Not used right now
                     $country = $package["destination"]["country"];
