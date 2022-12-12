@@ -39,6 +39,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                  * @return void
                  */
                 public function __construct($instance_id = 0) {
+
                     $this->id                    = 'artslab_product_count_method';
                     $this->instance_id           = absint($instance_id);
                     $this->method_title          = __('Product Count based Shipping Method');
@@ -62,7 +63,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         $categories = $this->category_maker($parent, $categories);
                     }
 
-                    $currencies = $this->get_field('currency', array(get_option('woocommerce_currency')));
+                    $currency = "LKR";
+                    //$currencies = $this->get_field('currency', array(get_option('woocommerce_currency')));
                     $form_fields = array(
                         'enabled' => array(
                             'title'         => __('Enable/Disable'),
@@ -92,8 +94,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         'description'   => __( 'Pricing rules apply to all products' ),
                         'callback'      => 'ecec',
                     );
-
-                    foreach ($currencies as $key => $currency) {
+                    //foreach ($currencies as $key => $currency) {
                         $form_fields['all_'.$currency.'_cost'] = array(
                             'title'         => __($currency.' Product Cost'),
                             'type'          => 'price',
@@ -108,22 +109,22 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'default'       => __('1'),
                             'desc_tip'      => true,
                         );
-                    }
+                    //}
 
-                    $form_fields['product_category'] = array(
-                        'title'         => __( 'Product Category'),
+                    $form_fields['product_category_1_title'] = array(
+                        'title'         => __( 'Product Category 1'),
                         'type'          => 'title',
                         'description'   => __( 'If there is a seperate product category these pricing rules apply to' ),
                         'callback'      => 'ecec',
                     );
-                    $form_fields['product_category_enabled'] = array(
+                    $form_fields['product_category_1_enabled'] = array(
                         'title'         => __( 'Enable/Disable Category Pricing' ),
                         'type'          => 'checkbox',
                         'label'         => __( 'Enable this product category method it will be active for only one category'),
                         'default'       => 'yes',
                     );
-                    $form_fields['product_category'] = array(
-                        'title'         => __( 'Product Categories' ),
+                    $form_fields['product_category_1'] = array(
+                        'title'         => __( 'Product Category 1' ),
                         'type'          => 'select',
                         'select_buttons'    => true,
                         'class'         => 'wc-enhanced-select',
@@ -132,8 +133,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         'desc_tip'      => true,
                     );
 
-                    foreach ($currencies as $key => $currency) {
-                        $form_fields['product_'.$currency.'_cost'] = array(
+                    //foreach ($currencies as $key => $currency) {
+                        $form_fields['product_1_'.$currency.'_cost'] = array(
                             'title'         => __($currency.' Product Cost'),
                             'type'          => 'price',
                             'description'   => __($currency.' cost of the first product'),
@@ -143,7 +144,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'currency'      => $currency,
                             'neotype'       => 'cost'
                         );
-                        $form_fields['product_'.$currency.'_cost_additional'] = array(
+                        $form_fields['product_1_'.$currency.'_cost_additional'] = array(
                             'title'         => __($currency.' Each Additional Product Cost'),
                             'type'          => 'price',
                             'description'   => __($currency.' cost of the every addtional product'),
@@ -153,7 +154,195 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             'currency'      => $currency,
                             'neotype'       => 'cost_additional'
                         );
-                    }
+                    //}
+
+                    /********** Product 2*/
+
+                    $form_fields['product_category_2_title'] = array(
+                        'title'         => __( 'Product Category 2'),
+                        'type'          => 'title',
+                        'description'   => __( 'If there is a seperate product category these pricing rules apply to' ),
+                        'callback'      => 'ecec',
+                    );
+                    $form_fields['product_category_2_enabled'] = array(
+                        'title'         => __( 'Enable/Disable Category Pricing' ),
+                        'type'          => 'checkbox',
+                        'label'         => __( 'Enable this product category method it will be active for only one category'),
+                        'default'       => 'yes',
+                    );
+                    $form_fields['product_category_2'] = array(
+                        'title'         => __( 'Product Category 2' ),
+                        'type'          => 'select',
+                        'select_buttons'    => true,
+                        'class'         => 'wc-enhanced-select',
+                        'options'       => $categories,
+                        'description'   => __( 'Which product category does this apply to' ),
+                        'desc_tip'      => true,
+                    );
+
+                    //foreach ($currencies as $key => $currency) {
+                        $form_fields['product_2_'.$currency.'_cost'] = array(
+                            'title'         => __($currency.' Product Cost'),
+                            'type'          => 'price',
+                            'description'   => __($currency.' cost of the first product'),
+                            'default'       => __('1'),
+                            'desc_tip'      => true,
+                            'key'           => $key,
+                            'currency'      => $currency,
+                            'neotype'       => 'cost'
+                        );
+                        $form_fields['product_2_'.$currency.'_cost_additional'] = array(
+                            'title'         => __($currency.' Each Additional Product Cost'),
+                            'type'          => 'price',
+                            'description'   => __($currency.' cost of the every addtional product'),
+                            'default'       => __('1'),
+                            'desc_tip'      => true,
+                            'key'           => $key,
+                            'currency'      => $currency,
+                            'neotype'       => 'cost_additional'
+                        );
+                    //}
+
+                    /********** Product 3*/
+
+                    $form_fields['product_category_3_title'] = array(
+                        'title'         => __( 'Product Category 3'),
+                        'type'          => 'title',
+                        'description'   => __( 'If there is a seperate product category these pricing rules apply to' ),
+                        'callback'      => 'ecec',
+                    );
+                    $form_fields['product_category_3_enabled'] = array(
+                        'title'         => __( 'Enable/Disable Category Pricing' ),
+                        'type'          => 'checkbox',
+                        'label'         => __( 'Enable this product category method it will be active for only one category'),
+                        'default'       => 'yes',
+                    );
+                    $form_fields['product_category_3'] = array(
+                        'title'         => __( 'Product Category 3' ),
+                        'type'          => 'select',
+                        'select_buttons'    => true,
+                        'class'         => 'wc-enhanced-select',
+                        'options'       => $categories,
+                        'description'   => __( 'Which product category does this apply to' ),
+                        'desc_tip'      => true,
+                    );
+
+                    //foreach ($currencies as $key => $currency) {
+                        $form_fields['product_3_'.$currency.'_cost'] = array(
+                            'title'         => __($currency.' Product Cost'),
+                            'type'          => 'price',
+                            'description'   => __($currency.' cost of the first product'),
+                            'default'       => __('1'),
+                            'desc_tip'      => true,
+                            'key'           => $key,
+                            'currency'      => $currency,
+                            'neotype'       => 'cost'
+                        );
+                        $form_fields['product_3_'.$currency.'_cost_additional'] = array(
+                            'title'         => __($currency.' Each Additional Product Cost'),
+                            'type'          => 'price',
+                            'description'   => __($currency.' cost of the every addtional product'),
+                            'default'       => __('1'),
+                            'desc_tip'      => true,
+                            'key'           => $key,
+                            'currency'      => $currency,
+                            'neotype'       => 'cost_additional'
+                        );
+                    //}
+
+                    /********** Product 4*/
+
+                    $form_fields['product_category_4_title'] = array(
+                        'title'         => __( 'Product Category 4'),
+                        'type'          => 'title',
+                        'description'   => __( 'If there is a seperate product category these pricing rules apply to' ),
+                        'callback'      => 'ecec',
+                    );
+                    $form_fields['product_category_4_enabled'] = array(
+                        'title'         => __( 'Enable/Disable Category Pricing' ),
+                        'type'          => 'checkbox',
+                        'label'         => __( 'Enable this product category method it will be active for only one category'),
+                        'default'       => 'yes',
+                    );
+                    $form_fields['product_category_4'] = array(
+                        'title'         => __( 'Product Category 4' ),
+                        'type'          => 'select',
+                        'select_buttons'    => true,
+                        'class'         => 'wc-enhanced-select',
+                        'options'       => $categories,
+                        'description'   => __( 'Which product category does this apply to' ),
+                        'desc_tip'      => true,
+                    );
+
+                    //foreach ($currencies as $key => $currency) {
+                        $form_fields['product_4_'.$currency.'_cost'] = array(
+                            'title'         => __($currency.' Product Cost'),
+                            'type'          => 'price',
+                            'description'   => __($currency.' cost of the first product'),
+                            'default'       => __('1'),
+                            'desc_tip'      => true,
+                            'key'           => $key,
+                            'currency'      => $currency,
+                            'neotype'       => 'cost'
+                        );
+                        $form_fields['product_4_'.$currency.'_cost_additional'] = array(
+                            'title'         => __($currency.' Each Additional Product Cost'),
+                            'type'          => 'price',
+                            'description'   => __($currency.' cost of the every addtional product'),
+                            'default'       => __('1'),
+                            'desc_tip'      => true,
+                            'key'           => $key,
+                            'currency'      => $currency,
+                            'neotype'       => 'cost_additional'
+                        );
+                    //}
+
+                    /********** Product 5*/
+
+                    $form_fields['product_category_5_title'] = array(
+                        'title'         => __( 'Product Category 5'),
+                        'type'          => 'title',
+                        'description'   => __( 'If there is a seperate product category these pricing rules apply to' ),
+                        'callback'      => 'ecec',
+                    );
+                    $form_fields['product_category_5_enabled'] = array(
+                        'title'         => __( 'Enable/Disable Category Pricing' ),
+                        'type'          => 'checkbox',
+                        'label'         => __( 'Enable this product category method it will be active for only one category'),
+                        'default'       => 'yes',
+                    );
+                    $form_fields['product_category_5'] = array(
+                        'title'         => __( 'Product Category 5' ),
+                        'type'          => 'select',
+                        'select_buttons'    => true,
+                        'class'         => 'wc-enhanced-select',
+                        'options'       => $categories,
+                        'description'   => __( 'Which product category does this apply to' ),
+                        'desc_tip'      => true,
+                    );
+
+                    //foreach ($currencies as $key => $currency) {
+                        $form_fields['product_5_'.$currency.'_cost'] = array(
+                            'title'         => __($currency.' Product Cost'),
+                            'type'          => 'price',
+                            'description'   => __($currency.' cost of the first product'),
+                            'default'       => __('1'),
+                            'desc_tip'      => true,
+                            'key'           => $key,
+                            'currency'      => $currency,
+                            'neotype'       => 'cost'
+                        );
+                        $form_fields['product_5_'.$currency.'_cost_additional'] = array(
+                            'title'         => __($currency.' Each Additional Product Cost'),
+                            'type'          => 'price',
+                            'description'   => __($currency.' cost of the every addtional product'),
+                            'default'       => __('1'),
+                            'desc_tip'      => true,
+                            'key'           => $key,
+                            'currency'      => $currency,
+                            'neotype'       => 'cost_additional'
+                        );
+                    //}
                     
                     $this->instance_form_fields = $form_fields;
 
@@ -266,16 +455,63 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         $all_cost_additional = $this->instance_settings['all_'.$wc.'_cost_additional'];
                         $all_cost = $this->instance_settings['all_'.$wc.'_cost'];
 
-                        $product_category = $this->instance_settings['product_category'];
+                        $product_category1 = $this->instance_settings['product_category_1'];
+                        $product_1_cost_additional = $this->instance_settings['product_1_'.$wc.'_cost_additional'];
+                        $product_1_cost = $this->instance_settings['product_1_'.$wc.'_cost'];
 
-                        $product_cost_additional = $this->instance_settings['product_'.$wc.'_cost_additional'];
-                        $product_cost = $this->instance_settings['product_'.$wc.'_cost'];
+                        //Product 2
+                        $product_category2 = $this->instance_settings['product_category_2'];
+                        $product_2_cost_additional = $this->instance_settings['product_2_'.$wc.'_cost_additional'];
+                        $product_2_cost = $this->instance_settings['product_2_'.$wc.'_cost'];
 
-                        if(in_array($product_category, $categories)){
+                        //Product 3
+                        $product_category3 = $this->instance_settings['product_category_3'];
+                        $product_3_cost_additional = $this->instance_settings['product_3_'.$wc.'_cost_additional'];
+                        $product_3_cost = $this->instance_settings['product_3_'.$wc.'_cost'];
+
+                        //Product 4
+                        $product_category4 = $this->instance_settings['product_category_4'];
+                        $product_4_cost_additional = $this->instance_settings['product_4_'.$wc.'_cost_additional'];
+                        $product_4_cost = $this->instance_settings['product_4_'.$wc.'_cost'];
+
+                        //Product 5
+                        $product_category5 = $this->instance_settings['product_category_5'];
+                        $product_5_cost_additional = $this->instance_settings['product_5_'.$wc.'_cost_additional'];
+                        $product_5_cost = $this->instance_settings['product_5_'.$wc.'_cost'];
+
+                        if(in_array($product_category1, $categories)){
                             if($values['quantity'] != 1){
-                                $cost += $product_cost_additional * ($values['quantity']);
+                                $cost += $product_1_cost_additional * ($values['quantity']);
                             }else{
-                                $cost += $product_cost * ($values['quantity']);
+                                $cost += $product_1_cost * ($values['quantity']);
+                            }
+                        }elseif(in_array($product_category2, $categories)){
+                            //Product 2
+                            if($values['quantity'] != 1){
+                                $cost += $product_2_cost_additional * ($values['quantity']);
+                            }else{
+                                $cost += $product_2_cost * ($values['quantity']);
+                            }
+                        }elseif(in_array($product_category3, $categories)){
+                            //Product 3
+                            if($values['quantity'] != 1){
+                                $cost += $product_3_cost_additional * ($values['quantity']);
+                            }else{
+                                $cost += $product_3_cost * ($values['quantity']);
+                            }
+                        }elseif(in_array($product_category4, $categories)){
+                            //Product 4
+                            if($values['quantity'] != 1){
+                                $cost += $product_4_cost_additional * ($values['quantity']);
+                            }else{
+                                $cost += $product_4_cost * ($values['quantity']);
+                            }
+                        }elseif(in_array($product_category5, $categories)){
+                            //Product 5
+                            if($values['quantity'] != 1){
+                                $cost += $product_5_cost_additional * ($values['quantity']);
+                            }else{
+                                $cost += $product_5_cost * ($values['quantity']);
                             }
                         }else{
                             if($values['quantity'] != 1){
