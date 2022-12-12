@@ -513,7 +513,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     }
                     $this->add_rate( array(
                         'id'    => $this->id . $this->instance_id,
-                        'label' => $this->title.' '.$cost.' '.wmc_get_price($cost, $wc).' '.wmc_get_price($cost, 'AUD'),
+                        //'label' => $this->title.' '.$cost.' '.wmc_get_price($cost, $wc).' '.wmc_get_price($cost, 'AUD'),
+                        'label' => $this->title,
                         'cost'  => $cost / wmc_get_price(1, $wc, true),
                     ));
                 }
