@@ -32,6 +32,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
                 public $params = "";
                 public $products = array();
+
                 /**
                  * Constructor for your shipping class
                  *
@@ -53,14 +54,51 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
                     $args = array(
                         'taxonomy'     => 'product_cat',
-                        'orderby'      => 'name',
-                        'hierarchical' => true,
-                        'hide_empty'   => false
+                        'orderby'      => 'parent',
+                        'hierarchical' => false,
+                        'hide_empty'   => false,
+                        'parent'       => 0,
                     );
                     $all_categories = get_categories( $args );
                     $categories = array();
-                    foreach ($all_categories as $key => $parent) {
-                        $categories = $this->category_maker($parent, $categories);
+                    foreach($all_categories as $category){
+                        $categories[$category->term_id] = $category->name;
+                        $args = array(
+                            'taxonomy'     => 'product_cat',
+                            'orderby'      => 'parent',
+                            'hierarchical' => false,
+                            'hide_empty'   => false,
+                            'parent'       => $category->term_id,
+                        );
+                        $sub_categories = get_categories($args);
+                        foreach ($sub_categories as $key => $subcategory) {
+                            // code...
+                            $categories[$subcategory->term_id] = " - ".$subcategory->name;
+                            $args = array(
+                                'taxonomy'     => 'product_cat',
+                                'orderby'      => 'parent',
+                                'hierarchical' => false,
+                                'hide_empty'   => false,
+                                'parent'       => $subcategory->term_id,
+                            );
+                            $sub2_categories = get_categories($args);
+                            foreach ($sub2_categories as $key => $sub3category) {
+                                // code...
+                                $categories[$sub3category->term_id] = " - - ".$sub3category->name;
+                                $args = array(
+                                    'taxonomy'     => 'product_cat',
+                                    'orderby'      => 'parent',
+                                    'hierarchical' => false,
+                                    'hide_empty'   => false,
+                                    'parent'       => $sub3category->term_id,
+                                );
+                                $sub3_categories = get_categories($args);
+                                foreach ($sub3_categories as $key => $sub4category) {
+                                    // code...
+                                    $categories[$sub4category->term_id] = " - - - ".$sub4category->name;
+                                }
+                            }
+                        }
                     }
 
                     $currency = "LKR";
@@ -700,30 +738,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
                     return ob_get_clean();
                 }
-
-                public function category_maker($category, $categories)
-                {
-                    // code...
-                    if ($category->category_parent == $category->term_id || $category->category_parent == 0) {
-                        $categories[$category->term_id] = $category->cat_name;
-                    }
-                    $args2 = array(
-                        'taxonomy'     => 'product_cat',
-                        'child_of'     => $category->term_id,
-                        'parent'       => $category->term_id,
-                        'hide_empty'   => false,
-                        'hierarchical' => true,
-                    );
-                    $sub_cats = get_categories($args2);
-                    if($sub_cats) {
-                        foreach($sub_cats as $sub_category) {
-                            if ($sub_category->category_parent == $category->term_id) {
-                                $categories[$sub_category->term_id] = " - ".$sub_category->cat_name;
-                            }
-                        }
-                    }
-                    return $categories;
-                }                
             }
         }
     }
