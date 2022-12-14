@@ -701,7 +701,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                  *
                  * @param string $key Field key.
                  * @param array  $data Field data.
-                 * @since  1.7.0
+                 * @since  1.8.0
                  * @return string
                  */
                 public function generate_hidden_html( $key, $data ) {
