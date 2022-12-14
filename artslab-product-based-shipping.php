@@ -111,6 +111,51 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         );
                     //}
 
+                    $form_fields['product_category_0_title'] = array(
+                        'title'         => __( 'Product Category 0'),
+                        'type'          => 'title',
+                        'description'   => __( 'If there is a seperate product category these pricing rules apply to' ),
+                        'callback'      => 'ecec',
+                    );
+                    $form_fields['product_category_0_enabled'] = array(
+                        'title'         => __( 'Enable/Disable Category Pricing' ),
+                        'type'          => 'checkbox',
+                        'label'         => __( 'Enable this product category method it will be active for only one category'),
+                        'default'       => 'yes',
+                    );
+                    $form_fields['product_category_0'] = array(
+                        'title'         => __( 'Product Category 0' ),
+                        'type'          => 'multiselect',
+                        'select_buttons'    => true,
+                        'class'         => 'wc-enhanced-select',
+                        'options'       => $categories,
+                        'description'   => __( 'Which product category does this apply to' ),
+                        'desc_tip'      => true,
+                    );
+
+                    //foreach ($currencies as $key => $currency) {
+                        $form_fields['product_0_'.$currency.'_cost'] = array(
+                            'title'         => __($currency.' Product Cost'),
+                            'type'          => 'price',
+                            'description'   => __($currency.' cost of the first product'),
+                            'default'       => __('1'),
+                            'desc_tip'      => true,
+                            'currency'      => $currency,
+                            'neotype'       => 'cost'
+                        );
+                        $form_fields['product_0_'.$currency.'_cost_additional'] = array(
+                            'title'         => __($currency.' Each Additional Product Cost'),
+                            'type'          => 'price',
+                            'description'   => __($currency.' cost of the every addtional product'),
+                            'default'       => __('1'),
+                            'desc_tip'      => true,
+                            'currency'      => $currency,
+                            'neotype'       => 'cost_additional'
+                        );
+                    //}
+
+                    /******** Product 1*/
+
                     $form_fields['product_category_1_title'] = array(
                         'title'         => __( 'Product Category 1'),
                         'type'          => 'title',
@@ -125,7 +170,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     );
                     $form_fields['product_category_1'] = array(
                         'title'         => __( 'Product Category 1' ),
-                        'type'          => 'select',
+                        'type'          => 'multiselect',
                         'select_buttons'    => true,
                         'class'         => 'wc-enhanced-select',
                         'options'       => $categories,
@@ -170,7 +215,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     );
                     $form_fields['product_category_2'] = array(
                         'title'         => __( 'Product Category 2' ),
-                        'type'          => 'select',
+                        'type'          => 'multiselect',
                         'select_buttons'    => true,
                         'class'         => 'wc-enhanced-select',
                         'options'       => $categories,
@@ -215,7 +260,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     );
                     $form_fields['product_category_3'] = array(
                         'title'         => __( 'Product Category 3' ),
-                        'type'          => 'select',
+                        'type'          => 'multiselect',
                         'select_buttons'    => true,
                         'class'         => 'wc-enhanced-select',
                         'options'       => $categories,
@@ -260,7 +305,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     );
                     $form_fields['product_category_4'] = array(
                         'title'         => __( 'Product Category 4' ),
-                        'type'          => 'select',
+                        'type'          => 'multiselect',
                         'select_buttons'    => true,
                         'class'         => 'wc-enhanced-select',
                         'options'       => $categories,
@@ -305,7 +350,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     );
                     $form_fields['product_category_5'] = array(
                         'title'         => __( 'Product Category 5' ),
-                        'type'          => 'select',
+                        'type'          => 'multiselect',
                         'select_buttons'    => true,
                         'class'         => 'wc-enhanced-select',
                         'options'       => $categories,
@@ -445,6 +490,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         $all_cost_additional = $this->instance_settings['all_'.$wc.'_cost_additional'];
                         $all_cost = $this->instance_settings['all_'.$wc.'_cost'];
 
+                        $product_category0 = $this->instance_settings['product_category_0'];
+                        $product_0_cost_additional = $this->instance_settings['product_0_'.$wc.'_cost_additional'];
+                        $product_0_cost = $this->instance_settings['product_0_'.$wc.'_cost'];
+
                         $product_category1 = $this->instance_settings['product_category_1'];
                         $product_1_cost_additional = $this->instance_settings['product_1_'.$wc.'_cost_additional'];
                         $product_1_cost = $this->instance_settings['product_1_'.$wc.'_cost'];
@@ -469,45 +518,65 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         $product_5_cost_additional = $this->instance_settings['product_5_'.$wc.'_cost_additional'];
                         $product_5_cost = $this->instance_settings['product_5_'.$wc.'_cost'];
 
-                        if(in_array($product_category1, $categories)){
+                        /*error_log(json_encode($product_category0));
+                        error_log(json_encode($product_category1));
+                        error_log(json_encode($product_category2));
+                        error_log(json_encode($product_category3));
+                        error_log(json_encode($product_category4));
+                        error_log(json_encode($product_category5));
+
+                        is_array($product_category0) ? error_log(json_encode(count(array_intersect($product_category0, $categories)))) : null;
+                        is_array($product_category1) ? error_log(json_encode(count(array_intersect($product_category1, $categories)))) : null;
+                        is_array($product_category2) ? error_log(json_encode(count(array_intersect($product_category2, $categories)))) : null;
+                        is_array($product_category3) ? error_log(json_encode(count(array_intersect($product_category3, $categories)))) : null;
+                        is_array($product_category4) ? error_log(json_encode(count(array_intersect($product_category4, $categories)))) : null;
+                        is_array($product_category5) ? error_log(json_encode(count(array_intersect($product_category5, $categories)))) : null;*/
+
+                        if(is_array($product_category0) && count(array_intersect($product_category0, $categories)) != 0){
                             if($values['quantity'] != 1){
-                                $cost += $product_1_cost_additional * ($values['quantity']);
+                                $cost += ($product_0_cost_additional * ($values['quantity'] - 1)) + $product_0_cost;
                             }else{
-                                $cost += $product_1_cost * ($values['quantity']);
+                                $cost += $product_0_cost;//* ($values['quantity']);
                             }
-                        }elseif(in_array($product_category2, $categories)){
+                        }elseif(is_array($product_category1) && count(array_intersect($product_category1, $categories)) != 0){
+                            if($values['quantity'] != 1){
+                                $cost += ($product_1_cost_additional * ($values['quantity'] - 1)) + $product_1_cost;
+                            }else{
+                                $cost += $product_1_cost;//($values['quantity']);
+                            }
+                        }elseif(is_array($product_category2) && count(array_intersect($product_category2, $categories)) != 0){
                             //Product 2
                             if($values['quantity'] != 1){
-                                $cost += $product_2_cost_additional * ($values['quantity']);
+                                $cost += ($product_2_cost_additional * ($values['quantity'] - 1)) + $product_2_cost;
                             }else{
-                                $cost += $product_2_cost * ($values['quantity']);
+                                $cost += $product_2_cost; // ($values['quantity']);
                             }
-                        }elseif(in_array($product_category3, $categories)){
+                        }elseif(is_array($product_category3) && count(array_intersect($product_category3, $categories)) != 0){
                             //Product 3
                             if($values['quantity'] != 1){
-                                $cost += $product_3_cost_additional * ($values['quantity']);
+                                $cost += ($product_3_cost_additional * ($values['quantity'] - 1)) + $product_3_cost;
                             }else{
-                                $cost += $product_3_cost * ($values['quantity']);
+                                $cost += $product_3_cost;//($values['quantity']);
                             }
-                        }elseif(in_array($product_category4, $categories)){
+                        }elseif(is_array($product_category4) && count(array_intersect($product_category4, $categories)) != 0){
                             //Product 4
                             if($values['quantity'] != 1){
-                                $cost += $product_4_cost_additional * ($values['quantity']);
+                                $cost += ($product_4_cost_additional * ($values['quantity'] - 1)) + $product_4_cost;
                             }else{
-                                $cost += $product_4_cost * ($values['quantity']);
+                                $cost += $product_4_cost;//($values['quantity']);
                             }
-                        }elseif(in_array($product_category5, $categories)){
+                        }elseif(is_array($product_category5) && count(array_intersect($product_category5, $categories)) != 0){
                             //Product 5
                             if($values['quantity'] != 1){
-                                $cost += $product_5_cost_additional * ($values['quantity']);
+                                $cost += ($product_5_cost_additional * ($values['quantity'] - 1)) + $product_5_cost;
                             }else{
-                                $cost += $product_5_cost * ($values['quantity']);
+                                $cost += $product_5_cost;//($values['quantity']);
                             }
                         }else{
                             if($values['quantity'] != 1){
-                                $cost += $all_cost_additional * ($values['quantity']);
+                                $cost += ($all_cost_additional * ($values['quantity'] - 1)) + $all_cost;
                             }else{
-                                $cost += $all_cost * ($values['quantity']);
+                                $cost += $all_cost;// ($values['quantity']);
                             }
                         }
                     }
